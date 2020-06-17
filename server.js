@@ -32,53 +32,42 @@ mongoose.connect(MONGODB_URI, { urlNewUrlParser: true });
 
 // Define API routes here
 // Use apiRoutes
-app.use("api", apiRoutes);
+app.use("/api", apiRoutes);
 
-// app.get("/search", function (req, res) {
-//   //return searched books - INCORRECT USAGE
-//   console.log("performing search");
-//   var searchTerm = "flower" //req.params.body;
-//   var searchValue = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + key;
-//   axios.get(searchValue).then(function (response) {
 
-//     console.log(response.data);
+
+// app.get("/api/books", (req, res) => {
+//   //return all saved books as json
+//   db.Book.find({}).then(function (dbBook) {
+//     res.json(dbBook);
+//   }).catch(function (err) {
+//     res.json(err);
+//   })
+// });
+
+// app.post("/api/books", (req, res) => {
+//   //save a new book to the database
+//   db.Book.create(req.body).then(function (dbBook) {
+//     res.json(dbBook);
 //   }).catch(function (err) {
 //     console.log(err);
 //   })
 // });
 
-app.get("/api/books", (req, res) => {
-  //return all saved books as json
-  db.Book.find({}).then(function (dbBook) {
-    res.json(dbBook);
-  }).catch(function (err) {
-    res.json(err);
-  })
-});
+// app.delete("/api/books/:id", (req, res) => {
+//   // delete book using Mongo ID
+//   db.Book.deleteOne({ _id: req.params.id }).then(function (dbBook) {
+//     res.json(dbBook);
+//   }).catch(function (err) {
+//     res.json(err);
+//   })
+// });
 
-app.post("/api/books", (req, res) => {
-  //save a new book to the database
-  db.Book.create(req.body).then(function (dbBook) {
-    res.json(dbBook);
-  }).catch(function (err) {
-    console.log(err);
-  })
-});
-
-app.delete("/api/books/:id", (req, res) => {
-  // delete book using Mongo ID
-  db.Book.deleteOne({ _id: req.params.id }).then(function (dbBook) {
-    res.json(dbBook);
-  }).catch(function (err) {
-    res.json(err);
-  })
-});
-
-// Send every other request to the React app
-// Define any API routes before this runs
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// // Send every other request to the React app
+// // Define any API routes before this runs
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
