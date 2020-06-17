@@ -79,6 +79,8 @@ class Home extends Component {
                                         </Button>
                                         </Col>
                                     </Row>
+                                    <br></br>
+                                    <br></br>
                                 </Container>
                             </form>
                         </Col>
@@ -103,6 +105,8 @@ class Home extends Component {
                                                     <Button
                                                         onClick={() => this.handleBookSubmit(book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}
                                                     >Save Book</Button>
+                                                    <br></br>
+                                                    <br></br>
                                                 </>
                                             );
                                         })}
