@@ -3,15 +3,16 @@
 var express = require("express");
 var path = require("path");
 var mongoose = require("mongoose");
-var cheerio = require("cheerio")
 var axios = require("axios");
 var PORT = process.env.PORT || 3001;
 var app = express();
+const apiRoutes = require("./routes/apiRoutes");
 
 
-// Require models
+// Require models and api key
 
-db = require("./models");
+var db = require("./models");
+var key = process.env.REACT_APP_API_KEY
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +22,8 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+
+
 // Connect to MongoDB
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
@@ -28,6 +31,21 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
 mongoose.connect(MONGODB_URI, { urlNewUrlParser: true });
 
 // Define API routes here
+// Use apiRoutes
+app.use("api", apiRoutes);
+
+// app.get("/search", function (req, res) {
+//   //return searched books - INCORRECT USAGE
+//   console.log("performing search");
+//   var searchTerm = "flower" //req.params.body;
+//   var searchValue = "https://www.googleapis.com/books/v1/volumes?q=" + searchTerm + "&key=" + key;
+//   axios.get(searchValue).then(function (response) {
+
+//     console.log(response.data);
+//   }).catch(function (err) {
+//     console.log(err);
+//   })
+// });
 
 app.get("/api/books", (req, res) => {
   //return all saved books as json
