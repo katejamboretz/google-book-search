@@ -49,6 +49,14 @@ class Home extends Component {
                 <Jumbotron />
                 <Container>
                     <Row>
+                        <Col size="xs-12">
+                            <h1 className="text-center">Search for Books</h1>
+                            <br></br>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>
+                    <Row>
                         <Col size="md-12">
                             <form>
                                 <Container>
@@ -78,7 +86,7 @@ class Home extends Component {
                     <Row>
                         <Col size="xs-12">
                             {!this.state.books.length ? (
-                                <h1 className="text-center">No Books to Display</h1>
+                                <h2 className="text-center">No Books to Display</h2>
                             ) : (
                                     <BookList>
                                         {this.state.books.map(book => {
