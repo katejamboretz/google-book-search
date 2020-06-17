@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Jumbotron from "../Jumbotron";
 //import Nav from "../Nav";
 // import Input from "../Input";
-// import Button from "../Button";
+import Button from "../Button";
 // import API from "./utils/API";
 import { BookList, BookListItem } from "../BookList";
 import { Container, Row, Col } from "../Grid";
@@ -23,7 +23,7 @@ class Saved extends Component {
             .catch(err => console.log(err));
     }
 
-    deleteBook = id => {
+    handleBookDelete = (id) => {
         API.deleteSaved(id)
             .then(res => this.loadBooks())
             .catch(err => console.log(err));
@@ -93,14 +93,19 @@ class Saved extends Component {
                                     <BookList>
                                         {this.state.books.map(book => {
                                             return (
-                                                <BookListItem
-                                                    key={book.title}
-                                                    title={book.title}
-                                                    authors={book.authors}
-                                                    description={book.description}
-                                                    image={book.image}
-                                                    link={book.link}
-                                                />
+                                                <>
+                                                    <BookListItem
+                                                        key={book._id}
+                                                        title={book.title}
+                                                        authors={book.authors}
+                                                        description={book.description}
+                                                        image={book.image}
+                                                        link={book.link}
+                                                    />
+                                                    <Button
+                                                        onClick={() => this.handleBookDelete(book._id)}
+                                                    >Delete Book</Button>
+                                                </>
                                             );
                                         })}
                                     </BookList>
