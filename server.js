@@ -9,10 +9,11 @@ var app = express();
 const apiRoutes = require("./routes/apiRoutes");
 
 
-// Require models and api key
+// Require models and api key (not needed)
 
-var db = require("./models");
-var key = process.env.REACT_APP_API_KEY
+// var db = require("./models");
+// var key = process.env.REACT_APP_API_KEY
+
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +27,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Connect to MongoDB
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
+var MONGODB_PROD = process.env.MONGODB_PROD
+
+var MONGODB_URI = process.env.MONGODB_URI || MONGODB_PROD || "mongodb://localhost/googlebooks";
 
 mongoose.connect(MONGODB_URI, { urlNewUrlParser: true });
 
@@ -63,11 +66,11 @@ app.use("/api", apiRoutes);
 //   })
 // });
 
-// // Send every other request to the React app
-// // Define any API routes before this runs
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
+// Send every other request to the React app
+// Define any API routes before this runs
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
