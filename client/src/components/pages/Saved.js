@@ -1,21 +1,118 @@
-import React from "react";
+import React, { Component } from "react";
+// import NavTabs from "../NavTabs";
+import Jumbotron from "../Jumbotron";
+//import Nav from "../Nav";
+// import Input from "../Input";
+// import Button from "../Button";
+// import API from "./utils/API";
+import { BookList, BookListItem } from "../BookList";
+import { Container, Row, Col } from "../Grid";
+import API from "./utils/API";
 
-function Saved() {
-    return (
-        <div>
-            <h1>Saved Books Page</h1>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque velit, lobortis ut magna
-                varius, blandit rhoncus sem. Morbi lacinia nisi ac dui fermentum, sed luctus urna tincidunt.
-                Etiam ut feugiat ex. Cras non risus mi. Curabitur mattis rutrum ipsum, ut aliquet urna
-                imperdiet ac. Sed nec nulla aliquam, bibendum odio eget, vestibulum tortor. Cras rutrum
-                ligula in tincidunt commodo. Morbi sit amet mollis orci, in tristique ex. Donec nec ornare
-                elit. Donec blandit est sed risus feugiat porttitor. Vestibulum molestie hendrerit massa non
-                consequat. Vestibulum vitae lorem tortor. In elementum ultricies tempus. Interdum et
-                malesuada fames ac ante ipsum primis in faucibus.
-      </p>
-        </div>
-    );
+
+class Saved extends Component {
+    state = {
+        books: [],
+        bookSearch: ""
+    };
+
+    loadBooks = () => {
+        API.getSaved()
+            .then(res =>
+                this.setState({ books: res.data }))
+            .catch(err => console.log(err));
+    }
+
+    deleteBook = id => {
+        API.deleteSaved(id)
+            .then(res => this.loadBooks())
+            .catch(err => console.log(err));
+    }
+
+    componentDidMount() {
+        this.loadBooks();
+    }
+
+    // handleInputChange = event => {
+
+    //     const { name, value } = event.target;
+    //     this.setState({
+    //         [name]: value
+    //     });
+    // };
+
+    // handleFormSubmit = event => {
+    //     event.preventDefault();
+    //     // console.log("search term: ", this.state.bookSearch);
+    //     API.getBooks(this.state.bookSearch)
+    //         .then(res => this.setState({ books: res.data }))
+    //         .catch(err => console.log(err));
+    // };
+
+    // document on load function, to get saved books from database
+
+    // delete function
+
+    render() {
+        return (
+            <div>
+                <Jumbotron />
+                <Container>
+                    {/* <Row>
+                        <Col size="md-12">
+                            <form>
+                                <Container>
+                                    <Row>
+                                        <Col size="xs-9 sm-10">
+                                            <Input
+                                                name="bookSearch"
+                                                value={this.state.bookSearch}
+                                                onChange={this.handleInputChange}
+                                                placeholder="Search For a Book"
+                                            />
+                                        </Col>
+                                        <Col size="xs-3 sm-2">
+                                            <Button
+                                                onClick={this.handleFormSubmit}
+                                                type="success"
+                                                className="input-lg"
+                                            >
+                                                Search
+                                        </Button>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </form>
+                        </Col>
+                    </Row> */}
+                    <Row>
+                        <Col size="xs-12">
+                            {!this.state.books.length ? (
+                                <h1 className="text-center">No Books to Display</h1>
+                            ) : (
+                                    <BookList>
+                                        {this.state.books.map(book => {
+                                            return (
+                                                <BookListItem
+                                                    key={book.title}
+                                                    title={book.title}
+                                                    authors={book.authors}
+                                                    description={book.description}
+                                                    image={book.image}
+                                                    link={book.link}
+                                                />
+                                            );
+                                        })}
+                                    </BookList>
+                                )}
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+
+
+        );
+    }
 }
 
 export default Saved;

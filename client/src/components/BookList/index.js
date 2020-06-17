@@ -1,5 +1,6 @@
 import React from "react";
 import Thumbnail from "../Thumbnail";
+// import Button from "../Button"
 import { Container, Row, Col } from "../Grid";
 
 // Exporting both RecipeList and RecipeListItem from this file
@@ -31,6 +32,11 @@ export function BookListItem({
             <a rel="noreferrer noopener" target="_blank" href={link}>
               Go to book!
             </a>
+            {/* <br></br>
+            <br></br>
+            <p>
+              <Button>Save Book</Button>
+            </p> */}
           </Col>
         </Row>
       </Container>

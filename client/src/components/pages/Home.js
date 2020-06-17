@@ -31,6 +31,18 @@ class Home extends Component {
             .catch(err => console.log(err));
     };
 
+    handleBookSubmit = (title, authors, description, image, link) => {
+        API.saveBook({
+            title: title,
+            authors: authors,
+            description: description,
+            image: image,
+            link: link
+        })
+            .then(res => console.log("save requested"))
+            .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <div>
@@ -71,14 +83,19 @@ class Home extends Component {
                                     <BookList>
                                         {this.state.books.map(book => {
                                             return (
-                                                <BookListItem
-                                                    key={book.title}
-                                                    title={book.volumeInfo.title}
-                                                    authors={book.volumeInfo.authors}
-                                                    description={book.volumeInfo.description}
-                                                    image={book.volumeInfo.imageLinks.thumbnail}
-                                                    link={book.volumeInfo.previewlink}
-                                                />
+                                                <>
+                                                    <BookListItem
+                                                        key={book.volumeInfo.title}
+                                                        title={book.volumeInfo.title}
+                                                        authors={book.volumeInfo.authors}
+                                                        description={book.volumeInfo.description}
+                                                        image={book.volumeInfo.imageLinks.thumbnail}
+                                                        link={book.volumeInfo.previewLink}
+                                                    />
+                                                    <Button
+                                                        onClick={() => this.handleBookSubmit(book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.description, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}
+                                                    >Save Book</Button>
+                                                </>
                                             );
                                         })}
                                     </BookList>
