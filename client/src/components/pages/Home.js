@@ -7,6 +7,7 @@ import Button from "../Button";
 import API from "./utils/API";
 import { BookList, BookListItem } from "../BookList";
 import { Container, Row, Col } from "../Grid";
+import "./style.css";
 
 
 class Home extends Component {

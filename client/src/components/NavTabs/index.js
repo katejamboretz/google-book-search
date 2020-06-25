@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./style.css"; // not yet adding font attribute
 
 function NavTabs() {
     return (

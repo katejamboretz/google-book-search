@@ -1,4 +1,7 @@
 .jumbotron {
   min-height: 300px;
   padding-top: 100px;
+  background-image: url(./patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg); 
+  background-size: cover;
+  font-family: 'Permanent Marker', cursive;
 }

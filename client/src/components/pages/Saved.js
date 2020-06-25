@@ -8,6 +8,7 @@ import Button from "../Button";
 import { BookList, BookListItem } from "../BookList";
 import { Container, Row, Col } from "../Grid";
 import API from "./utils/API";
+import "./style.css";
 
 
 class Saved extends Component {
